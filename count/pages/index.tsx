@@ -25,7 +25,7 @@ export default function Home() {
       body: JSON.stringify({ id: "10000", content: newNum }),
     });
   };
-  const { data, error } = useSWR("/api/getDB?id=10000", fetcher);
+  const { data, error, mutate } = useSWR("/api/getDB?id=10000", fetcher);
   if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
   if (data)
@@ -46,6 +46,7 @@ export default function Home() {
                   className={styles.button}
                   onClick={(e) => {
                     onClick(e, data.content.S);
+                    mutate();
                   }}
                 >
                   Decrement
